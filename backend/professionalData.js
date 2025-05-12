@@ -1,7 +1,11 @@
-// backend/professionalData.js
+const fs   = require("fs");
+const path = require("path");
+
+const imgPath     = path.join(__dirname, "../frontend/erikb.jpg");
+const base64Image = fs.readFileSync(imgPath).toString("base64");
 module.exports = {
   professionalName: "Erik Burton",
-  base64Image: "<YOUR_FULL_BASE64_STRING_HERE>",
+  base64Image,
   nameLink: {
     firstName: "Erik: ",
     url: "https://erikburton.github.io/"
