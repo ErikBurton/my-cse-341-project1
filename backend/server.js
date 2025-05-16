@@ -6,6 +6,8 @@ const path    = require("path");
 const Profile = require("./models/Profile");
 const Contact = require("./models/Contact");
 
+const contactRoutes = require("./routes/contactRoutes");
+
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -31,6 +33,7 @@ app.use(express.static(path.join(__dirname, "../frontend")));
 
 
 app.use(cors());
+app.use(express.json());
 
 
 app.get("/professional", async (req, res, next) => {
@@ -43,27 +46,7 @@ app.get("/professional", async (req, res, next) => {
   }
 });
 
-// GET all contacts
-app.get("/contacts", async (req, res, next) => {
-  try {
-    const list = await Contact.find().lean();
-    res.json(list);
-  } catch (err) {
-    next(err);
-  }
-});
-
-// GET one contact by ID
-app.get("/contacts/:id", async (req, res, next) => {
-  try {
-    const single = await Contact.findById(req.params.id).lean();
-    if (!single) return res.status(404).json({ error: "Not found" });
-    res.json(single);
-  } catch (err) {
-    next(err);
-  }
-});
-
+app.use("/contacts", contactRoutes);
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../frontend/index.html"));
