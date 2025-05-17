@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const cors    = require("cors");
 const path    = require("path");
 const Profile = require("./models/Profile");
-const Contact = require("./models/Contact");
+// const Contact = require("./models/Contact");
 
 const contactRoutes = require("./routes/contactRoutes");
 
