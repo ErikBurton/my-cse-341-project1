@@ -18,6 +18,7 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/professional", async (req, res, next) => {
+  console.log("→ GET /professional");
   try {
     const profile = await Profile.findOne().lean();
     if (!profile) return res.status(404).send("No profile found");
