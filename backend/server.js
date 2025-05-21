@@ -1,38 +1,21 @@
 require("dotenv").config();
+require("./database/connection");
+
 const express = require("express");
-const mongoose = require("mongoose");
 const cors    = require("cors");
 const path    = require("path");
 const Profile = require("./models/Profile");
-// const Contact = require("./models/Contact");
-
 const contactRoutes = require("./routes/contactRoutes");
 
 
 const app = express();
 const PORT = process.env.PORT || 8080;
 
-// 1. Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI)
-.then(() => console.log('MongoDB connected'))
-.catch(err => {
-  console.error('MongoDB connection error:', err);
-  process.exit(1); // exit if cannot connect
-});
-
-// 2. 
-// listen for additional connection events
-mongoose.connection.on('disconnected', () => {
-  console.warn('MongoDB disconnected');
-});
-
-// 3. Express setup
+// Express setup
 app.use(express.static(path.join(__dirname, "../frontend")));
-
 
 app.use(cors());
 app.use(express.json());
-
 
 app.get("/professional", async (req, res, next) => {
   try {
