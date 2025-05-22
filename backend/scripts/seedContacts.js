@@ -11,26 +11,47 @@ async function seed() {
     await Contact.deleteMany({});
     console.log("Cleared contacts");
 
-    // Sample data
-    const sampleContacts = [
+    // Data to seed
+    const contacts = [
       {
-        firstName:     "Neil",
-        lastName:      "Peart",
-        email:         "theprofessor@rush.com",
-        favoriteColor: "blue",
-        birthday:      new Date("1952-09-28")
+        firstName: 'Geddy',
+        lastName: 'Lee',
+        email: 'geddy.lee@rushband.com',
+        favoriteColor: 'Sunburst',
+        birthday: '1953-07-29', 
       },
       {
-        firstName:     "Geddy",
-        lastName:      "Lee",
-        email:         "glee@rush.com",
-        favoriteColor: "green",
-        birthday:      new Date("1953-08-16")
+        firstName: 'Alex',
+        lastName: 'Lifeson',
+        email: 'alex.lifeson@rushband.com',
+        favoriteColor: 'Teal',
+        birthday: '1953-08-27', 
+      },
+      {
+        firstName: 'Neil',
+        lastName: 'Peart',
+        email: 'neil.peart@rushband.com',
+        favoriteColor: 'Silver',
+        birthday: '1952-09-12', 
+      },
+      {
+        firstName: 'John',
+        lastName: 'Rutsey',
+        email: 'john.rutsey@rushband.com',
+        favoriteColor: 'Green',
+        birthday: '1952-07-23', 
+      },
+      {
+        firstName: 'Jeff',
+        lastName: 'Jones',
+        email: 'jeff.jones@rushband.com',
+        favoriteColor: 'Brown',
+        birthday: '1953-09-20', 
       }
     ];
 
-    await Contact.insertMany(sampleContacts);
-    console.log("Seeded contacts:", sampleContacts.length);
+    await Contact.insertMany(contacts);
+    console.log("Seeded contacts:", contacts.length);
 
   } catch (err) {
     console.error("SeedContacts error:", err);

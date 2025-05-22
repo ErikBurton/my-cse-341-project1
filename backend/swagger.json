@@ -1,0 +1,175 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Contacts API",
+    "version": "1.0.0",
+    "description": "An API to create, read, update and delete contacts."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Local server"
+    }
+  ],
+  "paths": {
+    "/contacts": {
+      "get": {
+        "summary": "Get all contacts",
+        "responses": {
+          "200": {
+            "description": "An array of contacts",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Contact" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new contact",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Contact" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created contact",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Contact" }
+              }
+            }
+          },
+          "400": { "description": "Invalid input" }
+        }
+      }
+    },
+    "/contacts/{id}": {
+      "parameters": [
+        { "$ref": "#/components/parameters/contactId" }
+      ],
+      "get": {
+        "summary": "Get a contact by ID",
+        "responses": {
+          "200": {
+            "description": "A single contact",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Contact" }
+              }
+            }
+          },
+          "400": { "description": "Invalid ID supplied" },
+          "404": { "description": "Contact not found" }
+        }
+      },
+      "put": {
+        "summary": "Update a contact",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Contact" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated contact",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Contact" }
+              }
+            }
+          },
+          "400": { "description": "Invalid ID or input" },
+          "404": { "description": "Contact not found" }
+        }
+      },
+      "delete": {
+        "summary": "Delete a contact",
+        "responses": {
+          "200": {
+            "description": "Deleted contact",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Contact" }
+              }
+            }
+          },
+          "400": { "description": "Invalid ID supplied" },
+          "404": { "description": "Contact not found" }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "contactId": {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "description": "MongoDB ObjectId of the contact",
+        "schema": { "type": "string" }
+      }
+    },
+    "schemas": {
+      "Contact": {
+        "type": "object",
+        "required": [
+          "firstName",
+          "lastName",
+          "email",
+          "favoriteColor",
+          "birthday"
+        ],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "readOnly": true
+          },
+          "firstName": {
+            "type": "string",
+            "example": "Jane"
+          },
+          "lastName": {
+            "type": "string",
+            "example": "Doe"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "jane.doe@example.com"
+          },
+          "favoriteColor": {
+            "type": "string",
+            "example": "Lavender"
+          },
+          "birthday": {
+            "type": "string",
+            "format": "date",
+            "example": "1985-07-24"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          }
+        }
+      }
+    }
+  }
+}

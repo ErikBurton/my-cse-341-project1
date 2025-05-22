@@ -6,6 +6,8 @@ const cors    = require("cors");
 const path    = require("path");
 const Profile = require("./models/Profile");
 const contactRoutes = require("./routes/contactRoutes");
+const swaggerUi = require("swagger-ui-express");
+const swaggerDoc = require("./swagger.json");
 
 
 const app = express();
@@ -33,6 +35,12 @@ app.use("/contacts", contactRoutes);
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../frontend/index.html"));
 });
+
+app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerDoc)
+);
 
 app.listen(PORT, () => {
   console.log(`Server listening at http://localhost:${PORT}`);
